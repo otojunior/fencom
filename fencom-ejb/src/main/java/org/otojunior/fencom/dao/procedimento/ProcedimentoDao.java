@@ -5,6 +5,7 @@ package org.otojunior.fencom.dao.procedimento;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +16,7 @@ import org.otojunior.fencom.entidade.procedimento.Procedimento;
  * @author 01456231650
  *
  */
+@Stateless
 public class ProcedimentoDao extends DaoBase<Procedimento> {
 	/**
 	 * 
