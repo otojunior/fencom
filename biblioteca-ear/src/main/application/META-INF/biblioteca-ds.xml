@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
+    
+    <datasource jndi-name="jdbc/biblioteca-ds"
+        pool-name="default_pool" 
+        enabled="true"
+        use-java-context="true">
+        <connection-url>jdbc:h2:mem:default;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
+        <driver>h2</driver>
+        <security>
+            <user-name>sa</user-name>
+            <password>sa</password>
+        </security>
+    </datasource>
+    
+    <xa-datasource jndi-name="jdbc/biblioteca-xa-ds" 
+	    	pool-name="default_xa_pool" 
+	    	enabled="true" 
+	    	use-java-context="true">
+		<xa-datasource-property name="URL">jdbc:h2:mem:default;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</xa-datasource-property>
+		<xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+		<driver>h2</driver>
+		<security>
+			<user-name>sa</user-name>
+			<password>sa</password>
+		</security>
+	</xa-datasource>
+</datasources>
