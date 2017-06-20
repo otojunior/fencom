@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.otojunior</groupId>
+		<artifactId>fencom-pom</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>fencom-ear</artifactId>
+	<packaging>ear</packaging>
+
+	<name>fencom: EAR Module</name>
+
+	<build>
+		<finalName>fencom</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>${plugin.version.maven-ear-plugin}</version>
+				<configuration>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<skinnyWars>true</skinnyWars>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Build>${buildNumber}</Implementation-Build>
+							<Implementation-Branch>${scmBranch}</Implementation-Branch>
+							<Implementation-Date>${timestamp}</Implementation-Date>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.otojunior</groupId>
+			<artifactId>fencom</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>org.otojunior</groupId>
+			<artifactId>fencom-ejb</artifactId>
+			<version>${project.version}</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>org.otojunior</groupId>
+			<artifactId>fencom-jar</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>glassfish-profile</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.glassfish.embedded</groupId>
+						<artifactId>maven-embedded-glassfish-plugin</artifactId>
+						<version>${plugin.version.maven-embedded-glassfish-plugin}</version>
+						<configuration>
+							<name>${project.build.finalName}</name>
+							<app>target\${project.build.finalName}.ear</app>
+							<contextRoot>${project.build.finalName}</contextRoot>
+							<port>${config.maven-embedded-glassfish-plugin.port}</port>
+							<autoDelete>true</autoDelete>
+						</configuration>
+						<!-- 
+							mvn embedded-glassfish:run				(deploy + run)
+							mvn embedded-glassfish:deploy			(deploy)
+							mvn embedded-glassfish:undeploy			(undeploy)
+							mvn embedded-glassfish:start			(server start)
+							mvn embedded-glassfish:stop				(server stop)
+						-->
+						<executions>
+							<execution>
+								<phase>deploy</phase>
+								<goals>
+									<goal>deploy</goal>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+						
+						<dependencies>
+							<dependency>
+								<groupId>com.h2database</groupId>
+								<artifactId>h2</artifactId>
+								<version>${dependency.version.h2}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>jboss-profile</id>
+			<build>
+				<plugins>
+					<plugin>
+		                <groupId>org.jboss.as.plugins</groupId>
+		                <artifactId>jboss-as-maven-plugin</artifactId>
+		                <version>${plugin.version.jboss-as-maven-plugin}</version>
+		                <executions>
+		                    <execution>
+		                        <phase>deploy</phase>
+		                        <goals>
+		                            <goal>run</goal>
+		                        </goals>
+		                    </execution>
+		                </executions>
+		            </plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>

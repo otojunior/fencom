@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>org.otojunior</groupId>
-	<artifactId>biblioteca-pom</artifactId>
+	<artifactId>fencom-pom</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
-	<name>Project biblioteca</name>
-	<url>http://www.org.otojunior/biblioteca</url>
+	<name>Project fencom</name>
+	<url>http://www.org.otojunior/fencom</url>
 	
 	<organization>
 		<name>Organization org.otojunior</name>
@@ -18,14 +18,16 @@
 	</organization>
 
 	<modules>
-		<module>biblioteca-jar</module>
-		<module>biblioteca-ejb</module>
-		<module>biblioteca</module>
-		<module>biblioteca-ear</module>
+		<module>fencom-jar</module>
+		<module>fencom-ejb</module>
+		<module>fencom</module>
+		<module>fencom-ear</module>
 	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<java.version>1.7</java.version>
 		
 		<dependency.version.junit>4.12</dependency.version.junit>
 		<dependency.version.easymock>3.4</dependency.version.easymock>
@@ -41,7 +43,6 @@
 		<dependency.version.jboss-javaee>1.0.3.Final</dependency.version.jboss-javaee>
 		<dependency.version.hibernate>5.2.0.Final</dependency.version.hibernate>
 		
-		<plugin.version.java>1.8</plugin.version.java>
 		<plugin.version.maven-compiler-plugin>3.6.1</plugin.version.maven-compiler-plugin>
 		<plugin.version.maven-release-plugin>2.5.3</plugin.version.maven-release-plugin>
 		<plugin.version.maven-jar-plugin>3.0.2</plugin.version.maven-jar-plugin>
@@ -212,8 +213,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${plugin.version.maven-compiler-plugin}</version>
 				<configuration>
-					<source>${plugin.version.java}</source>
-					<target>${plugin.version.java}</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 			

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+        <groupId>org.otojunior</groupId>
+        <artifactId>fencom-pom</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>fencom-ejb</artifactId>
+    <packaging>ejb</packaging>
+
+    <name>fencom: EJB Module</name>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.otojunior</groupId>
+			<artifactId>fencom-jar</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>${plugin.version.maven-ejb-plugin}</version>
+				<configuration>
+					<ejbVersion>${config.version.ejbversion}</ejbVersion>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Build>${buildNumber}</Implementation-Build>
+							<Implementation-Branch>${scmBranch}</Implementation-Branch>
+							<Implementation-Date>${timestamp}</Implementation-Date>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>eclipselink-profile</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+				    <groupId>org.glassfish.main.extras</groupId>
+				    <artifactId>glassfish-embedded-all</artifactId>
+				    <version>${dependency.version.glassfish}</version>
+				    <scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		
+		<profile>
+			<id>hibernate-profile</id>
+			<dependencies>
+				<dependency>
+		            <groupId>org.jboss.spec</groupId>
+		            <artifactId>jboss-javaee-all-7.0</artifactId>
+		            <version>${dependency.version.jboss-javaee}</version>
+		            <type>pom</type>
+		            <scope>test</scope>
+		        </dependency>
+				<dependency>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-core</artifactId>
+					<version>${dependency.version.hibernate}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>
