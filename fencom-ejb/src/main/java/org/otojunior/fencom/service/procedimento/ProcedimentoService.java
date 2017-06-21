@@ -36,7 +36,7 @@ public class ProcedimentoService extends ServiceBase {
 
 	/**
 	 * 
-	 * @param livro
+	 * @param procedimento
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void persistir(Procedimento procedimento) {

@@ -8,13 +8,10 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
-import org.otojunior.fencom.entidade.livro.Livro;
-import org.otojunior.fencom.entidade.mock.LivroFabrica;
 import org.otojunior.fencom.entidade.mock.ProcedimentoFabrica;
 import org.otojunior.fencom.entidade.mock.UsuarioFabrica;
 import org.otojunior.fencom.entidade.procedimento.Procedimento;
 import org.otojunior.fencom.entidade.usuario.Usuario;
-import org.otojunior.fencom.service.livro.LivroService;
 import org.otojunior.fencom.service.procedimento.ProcedimentoService;
 import org.otojunior.fencom.service.usuario.UsuarioService;
 import org.slf4j.Logger;
@@ -31,7 +28,6 @@ public class InitService {
 	private static Logger LOG = LoggerFactory.getLogger(InitService.class);
 	
 	@EJB private UsuarioService usuarioService;
-	@EJB private LivroService livroService;
 	@EJB private ProcedimentoService procedimentoService;
 	
 	/**
@@ -47,20 +43,11 @@ public class InitService {
 	@PostConstruct
 	public void init() {
 		final int N_USUARIOS = 0;
-		final int N_LIVROS = 0;
 		final int N_PROCEDIMENTOS = 1000;
 		
 		for (int i = 0; i < N_USUARIOS; i++) {
 			Usuario u = UsuarioFabrica.criar();
 			usuarioService.persistir(u);
-		}
-		
-		for (int i = 0; i < N_LIVROS; i++) {
-			Livro lv = LivroFabrica.criar();
-			livroService.persistir(lv);
-			if (i % 1000 == 0) {
-				LOG.info("Carregando registros... " + ((double)i/N_LIVROS*100) + "% concluído");
-			}
 		}
 		
 		for (int i = 0; i < N_PROCEDIMENTOS; i++) {

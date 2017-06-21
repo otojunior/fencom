@@ -54,13 +54,6 @@ public class ProcedimentoView {
 	}
 	
 	/**
-	 * @return the livroLazyDataModel
-	 */
-	public ProcedimentoLazyDataModel getLivroLazyDataModel() {
-		return procedimentoLazyDataModel;
-	}
-	
-	/**
 	 * @return the procedimentoLazyDataModel
 	 */
 	public ProcedimentoLazyDataModel getProcedimentoLazyDataModel() {
@@ -73,7 +66,7 @@ public class ProcedimentoView {
 			selecionados = Collections.emptyList();
 			todosSelecionados = false;
 		} else {
-			selecionados = new ArrayList<>(livros);
+			selecionados = new ArrayList<>(procedimentos);
 			todosSelecionados = true;
 		}
 	}
