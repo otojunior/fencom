@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import org.otojunior.fencom.entidade.procedimento.Procedimento;
 import org.otojunior.fencom.service.procedimento.ProcedimentoService;
+import org.primefaces.event.ToggleSelectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,27 +61,14 @@ public class ProcedimentoView {
 		return procedimentoLazyDataModel;
 	}
 	
-	/*
 	public void onToggleSelect(ToggleSelectEvent event) {
-		if (todosSelecionados) {
-			selecionados = Collections.emptyList();
-			todosSelecionados = false;
+		if (event.isSelected()) {
+			selecionados = new ArrayList<>(service.pesquisarIds(descricao, codigoGuia));
 		} else {
-			selecionados = new ArrayList<>(procedimentos);
-			todosSelecionados = true;
+			selecionados.clear();
 		}
 	}
-
-	public void onRowSelectCheckbox(SelectEvent event) {
-		LOG.info("Source.class: " + event.getSource().getClass().getName());
-		LOG.info("Source.toString: " + event.getSource().toString());
-	}
 	
-	public void rowUnselectCheckbox(UnselectEvent event) {
-		LOG.info("Source.class: " + event.getSource().getClass().getName());
-		LOG.info("Source.toString: " + event.getSource().toString());
-	}
-	*/
 	
 	/**
 	 * @return the procedimentos

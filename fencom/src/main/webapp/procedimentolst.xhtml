@@ -45,6 +45,7 @@
 								value="#{procedimentoView.procedimentoLazyDataModel}"	
 								var="item">
 						
+						<!-- 
 						<f:facet name="header">
 							<p:commandButton 
 								action="#{procedimentoView.selecionarTodos}" 
@@ -57,12 +58,10 @@
 								value="Limpar Todos" 
 								update="idDataTableProcedimentoListagem"/>
 						</f:facet>
-						
-						<!-- 
-						<p:ajax event="rowSelectCheckbox" listener="#{procedimentoView.onRowSelectCheckbox}" update="idDataTableProcedimentoListagem"/>
-						<p:ajax event="rowUnselectCheckbox" listener="#{procedimentoView.onRowUnselectCheckbox}" update="idDataTableProcedimentoListagem"/>
-				        -->
-				        
+						-->
+						 
+						<p:ajax event="toggleSelect" listener="#{procedimentoView.onToggleSelect}" update="idDataTableProcedimentoListagem"/>
+				        				        
 				        <p:column id="idCheckboxAll" selectionMode="multiple" style="width:16px;text-align:center" />
 				        <p:column headerText="Id">
 				            <h:outputText value="#{item.id}" />
