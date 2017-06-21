@@ -14,7 +14,7 @@
 		<jta-data-source>jdbc/fencom-ds</jta-data-source>
 		
 		<class>org.otojunior.fencom.entidade.usuario.Usuario</class>
-		<class>org.otojunior.fencom.entidade.livro.Livro</class>
+		<class>org.otojunior.fencom.entidade.procedimento.Procedimento</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />

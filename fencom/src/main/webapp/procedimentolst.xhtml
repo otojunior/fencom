@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="/templates/template.xhtml">
+		<ui:define name="uiPageTitle">Listagem de Procedimentos</ui:define>
+		<ui:define name="uiPanelTitle">Listagem de Procedimentos</ui:define>
+		<ui:define name="uiPanelDescription"/>
+		<ui:define name="uiContent">
+			<script>
+				function controlarCheckboxes() {
+					var ischecked = $(document).find(":checkbox")["0"].checked
+					if (ischecked) {
+						PF('dataTableChecks').selectAllRows();
+					} else {
+						PF('dataTableChecks').unselectAllRows();
+					}
+				}
+
+				function doNothing() {
+					return 0;
+				}
+			</script>
+			
+			<h:form id="idForm">
+				<p>Descrição: <p:inputText value="#{procedimentoView.descricao}"/></p>
+				<p>Código da Guia: <p:inputText value="#{procedimentoView.codigoGuia}"/></p>
+				<p><p:commandButton action="#{procedimentoView.pesquisar}" value="Pesquisar" update="idDataTableProcedimentoListagem"/></p>
+			
+				<p>
+					<p:dataTable id="idDataTableProcedimentoListagem" 
+								emptyMessage="Nenhum registro encontrado"
+								lazy="true"
+								paginator="true" 
+								paginatorPosition="bottom"
+								rowKey="#{item.id}" 
+								rows="10" 
+								rowSelectMode="checkbox"
+								selection="#{procedimentoView.selecionados}" 
+								style="margin-bottom:0" 
+								widgetVar="dataTableChecks"
+								value="#{procedimentoView.procedimentoLazyDataModel}"	
+								var="item">
+						
+						<f:facet name="header">
+							<p:commandButton 
+								action="#{procedimentoView.selecionarTodos}" 
+								disabled="#{(procedimentoView.procedimentoLazyDataModel.rowCount eq null) or (procedimentoView.procedimentoLazyDataModel.rowCount eq 0)}"
+								update="idDataTableProcedimentoListagem"
+								value="Selecionar Todos"/>
+							<p:commandButton 
+								action="#{procedimentoView.limparTodos}"
+								disabled="#{(procedimentoView.procedimentoLazyDataModel.rowCount eq null) or (procedimentoView.procedimentoLazyDataModel.rowCount eq 0)}"
+								value="Limpar Todos" 
+								update="idDataTableProcedimentoListagem"/>
+						</f:facet>
+						
+						<!-- 
+						<p:ajax event="rowSelectCheckbox" listener="#{procedimentoView.onRowSelectCheckbox}" update="idDataTableProcedimentoListagem"/>
+						<p:ajax event="rowUnselectCheckbox" listener="#{procedimentoView.onRowUnselectCheckbox}" update="idDataTableProcedimentoListagem"/>
+				        -->
+				        
+				        <p:column id="idCheckboxAll" selectionMode="multiple" style="width:16px;text-align:center" />
+				        <p:column headerText="Id">
+				            <h:outputText value="#{item.id}" />
+				        </p:column>
+				        <p:column headerText="Descrição">
+				            <h:outputText value="#{item.descricao}" />
+				        </p:column>
+				        <p:column headerText="Código da Guia">
+				            <h:outputText value="#{item.codigoGuia}" />
+				        </p:column>
+				        <p:column headerText="Urgência">
+				            <h:outputText value="#{item.urgencia}" />
+				        </p:column>
+				        <p:column headerText="Valor do Desconto">
+				            <h:outputText value="#{item.valorDesconto}" />
+				        </p:column>
+				        <p:column headerText="Valor Total">
+				            <h:outputText value="#{item.valorTotal}" />
+				        </p:column>
+				        <f:facet name="footer">
+				            <p:commandButton process="idDataTableProcedimentoListagem" icon="ui-icon-search" 
+				            	value="Processar" action="#{procedimentoView.processar}" update="idDataTableProcedimentoListagem"/>
+				        </f:facet>
+				    </p:dataTable>
+				</p>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>
