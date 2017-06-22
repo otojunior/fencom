@@ -38,8 +38,6 @@
 		<dependency.version.commons-lang3>3.5</dependency.version.commons-lang3>
 		<dependency.version.commons-collections4>4.1</dependency.version.commons-collections4>
 		<dependency.version.commons-codec>1.10</dependency.version.commons-codec>
-		<dependency.version.javaee-api>7.0</dependency.version.javaee-api>
-		<dependency.version.glassfish>4.1.1</dependency.version.glassfish>
 		<dependency.version.jboss-javaee>1.0.3.Final</dependency.version.jboss-javaee>
 		<dependency.version.hibernate>5.2.0.Final</dependency.version.hibernate>
 		
@@ -51,12 +49,12 @@
 		<plugin.version.maven-surefire-plugin>2.20</plugin.version.maven-surefire-plugin>
 		<plugin.version.buildnumber-maven-plugin>1.4</plugin.version.buildnumber-maven-plugin>
 		<plugin.version.maven-ejb-plugin>2.5.1</plugin.version.maven-ejb-plugin>
-		<plugin.version.maven-war-plugin>3.1.0</plugin.version.maven-war-plugin>
+		<plugin.version.maven-war-plugin>3.0.0</plugin.version.maven-war-plugin>
 		<plugin.version.maven-ear-plugin>2.10.1</plugin.version.maven-ear-plugin>
 		<plugin.version.maven-embedded-glassfish-plugin>4.1.1</plugin.version.maven-embedded-glassfish-plugin>
 		<plugin.version.jboss-as-maven-plugin>7.8.Final</plugin.version.jboss-as-maven-plugin>
 		
-		<config.version.ejbversion>3.2</config.version.ejbversion>
+		<config.version.ejbversion>3.1</config.version.ejbversion>
 		<config.maven-embedded-glassfish-plugin.port>8080</config.maven-embedded-glassfish-plugin.port>
 		
 		<!--
@@ -106,6 +104,18 @@
 		</pluginRepository>
 	</pluginRepositories>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>3.0.3.Final</version>
+				<type>pom</type>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -148,7 +158,14 @@
 		    <version>${dependency.version.h2}</version>
 		    <scope>test</scope>
 		</dependency>
-				
+		
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -177,13 +194,6 @@
 		    <groupId>org.webjars</groupId>
 		    <artifactId>jquery</artifactId>
 		    <version>${dependency.version.jquery}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>${dependency.version.javaee-api}</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
