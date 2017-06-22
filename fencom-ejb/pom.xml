@@ -17,10 +17,29 @@
 	
 	<dependencies>
 		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>${dependency.version.h2}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.otojunior</groupId>
 			<artifactId>fencom-jar</artifactId>
 			<version>${project.version}</version>
 			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+    		<artifactId>hibernate-jpa-2.0-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

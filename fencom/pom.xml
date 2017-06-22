@@ -33,9 +33,39 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>org.jboss.spec.javax.faces</groupId>
+			<artifactId>jboss-jsf-api_2.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jboss.spec.javax.el</groupId>
+			<artifactId>jboss-el-api_2.2_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+      
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>5.2</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery</artifactId>
+		    <version>${dependency.version.jquery}</version>
 		</dependency>
 	</dependencies>
 

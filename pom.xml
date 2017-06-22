@@ -38,7 +38,7 @@
 		<dependency.version.commons-lang3>3.5</dependency.version.commons-lang3>
 		<dependency.version.commons-collections4>4.1</dependency.version.commons-collections4>
 		<dependency.version.commons-codec>1.10</dependency.version.commons-codec>
-		<dependency.version.jboss-javaee>1.0.3.Final</dependency.version.jboss-javaee>
+		<dependency.version.jboss-javaee>3.0.3.Final</dependency.version.jboss-javaee>
 		<dependency.version.hibernate>5.2.0.Final</dependency.version.hibernate>
 		
 		<plugin.version.maven-compiler-plugin>3.6.1</plugin.version.maven-compiler-plugin>
@@ -109,9 +109,9 @@
 			<dependency>
 				<groupId>org.jboss.spec</groupId>
 				<artifactId>jboss-javaee-6.0</artifactId>
-				<version>3.0.3.Final</version>
+				<version>${dependency.version.jboss-javaee}</version>
 				<type>pom</type>
-				<scope>provided</scope>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -153,20 +153,6 @@
 		</dependency>
 		
 		<dependency>
-		    <groupId>com.h2database</groupId>
-		    <artifactId>h2</artifactId>
-		    <version>${dependency.version.h2}</version>
-		    <scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-6.0</artifactId>
-			<type>pom</type>
-			<scope>provided</scope>
-		</dependency>
-		
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${dependency.version.slf4j}</version>
@@ -188,12 +174,6 @@
 		    <groupId>commons-codec</groupId>
 		    <artifactId>commons-codec</artifactId>
 		    <version>${dependency.version.commons-codec}</version>
-		</dependency>
-
-		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>jquery</artifactId>
-		    <version>${dependency.version.jquery}</version>
 		</dependency>
 	</dependencies>
 
