@@ -28,7 +28,10 @@
 			<h:form id="idForm">
 				<p>Descrição: <p:inputText value="#{procedimentoView.descricao}"/></p>
 				<p>Código da Guia: <p:inputText value="#{procedimentoView.codigoGuia}"/></p>
-				<p><p:commandButton action="#{procedimentoView.pesquisar}" value="Pesquisar" update="idDataTableProcedimentoListagem"/></p>
+				<p>
+					<p:commandButton action="#{procedimentoView.pesquisar}" value="Pesquisar" update="idDataTableProcedimentoListagem"/>
+					<p:commandButton value="Limpar" type="reset"/>
+				</p>
 			
 				<p>
 					<p:dataTable id="idDataTableProcedimentoListagem" 
@@ -89,5 +92,10 @@
 				</p>
 			</h:form>
 		</ui:define>
+		
+		<ui:define name="uiPageFooter">
+			<p:commandLink value="Logout" action="#{logoutView.logout}"/>
+		</ui:define>
+		
 	</ui:composition>
 </html>

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.otojunior.fencom.entidade.procedimento.Procedimento;
@@ -61,22 +62,14 @@ public class ProcedimentoView {
 		return procedimentoLazyDataModel;
 	}
 	
-	public void onToggleSelect(ToggleSelectEvent event) {
-		if (event.isSelected()) {
-			selecionados = new ArrayList<>(service.pesquisarIds(descricao, codigoGuia));
-		} else {
-			selecionados.clear();
-		}
-	}
-	
-	
 	/**
 	 * @return the procedimentos
 	 */
 	public List<Procedimento> getProcedimentos() {
 		return procedimentos;
 	}
-
+	
+	
 	/**
 	 * @return the selecionados
 	 */
@@ -91,6 +84,14 @@ public class ProcedimentoView {
 	public String limparTodos() {
 		selecionados.clear();
 		return null;
+	}
+
+	public void onToggleSelect(ToggleSelectEvent event) {
+		if (event.isSelected()) {
+			selecionados = new ArrayList<>(service.pesquisarIds(descricao, codigoGuia));
+		} else {
+			selecionados.clear();
+		}
 	}
 
 	/**
@@ -147,7 +148,7 @@ public class ProcedimentoView {
 	public void setProcedimentos(List<Procedimento> procedimentos) {
 		this.procedimentos = procedimentos;
 	}
-
+	
 	/**
 	 * @param selecionados the selecionados to set
 	 */
