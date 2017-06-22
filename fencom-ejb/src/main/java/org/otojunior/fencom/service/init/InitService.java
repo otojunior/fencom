@@ -4,9 +4,12 @@
 package org.otojunior.fencom.service.init;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.swing.JOptionPane;
 
 import org.otojunior.fencom.entidade.mock.ProcedimentoFabrica;
 import org.otojunior.fencom.entidade.mock.UsuarioFabrica;
@@ -29,6 +32,9 @@ public class InitService {
 	
 	@EJB private UsuarioService usuarioService;
 	@EJB private ProcedimentoService procedimentoService;
+	
+	@Resource 
+	private SessionContext ctx;
 	
 	/**
 	 * 
@@ -57,5 +63,12 @@ public class InitService {
 				LOG.info("Carregando registros... " + ((double)i/N_PROCEDIMENTOS*100) + "% concluído");
 			}
 		}
+	}
+
+	/**
+	 * 
+	 */
+	public void getUsuarioLogado() {
+		LOG.info("Usuário Logado: " + ctx.getCallerPrincipal().getName());
 	}
 }

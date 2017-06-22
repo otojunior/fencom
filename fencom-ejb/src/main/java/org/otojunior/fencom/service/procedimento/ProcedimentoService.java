@@ -15,6 +15,8 @@ import org.apache.commons.collections4.Predicate;
 import org.otojunior.fencom.dao.procedimento.ProcedimentoDao;
 import org.otojunior.fencom.entidade.procedimento.Procedimento;
 import org.otojunior.fencom.service.ServiceBase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author 01456231650
@@ -22,6 +24,9 @@ import org.otojunior.fencom.service.ServiceBase;
  */
 @Stateless
 public class ProcedimentoService extends ServiceBase {
+	@SuppressWarnings("unused")
+	private static final Logger LOG = LoggerFactory.getLogger(ProcedimentoService.class);
+	
 	@EJB
 	private ProcedimentoDao dao;
 	
