@@ -16,7 +16,7 @@ import org.otojunior.fencom.service.init.InitService;
  */
 @ManagedBean
 @SessionScoped
-public class LogoutView {
+public class SessionControlView {
 	
 	@Inject
 	private InitService service;
@@ -30,7 +30,7 @@ public class LogoutView {
 			getCurrentInstance().
 			getExternalContext().
 			invalidateSession();
-        return "/index.xhtml?faces-redirect=true";
+        return "/pages/index.xhtml?faces-redirect=true";
 	}
 	
 	/**

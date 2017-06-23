@@ -6,7 +6,7 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>xhtmlauth</web-resource-name>
-			<url-pattern>/*</url-pattern>
+			<url-pattern>/pages/*</url-pattern>
 			<http-method>GET</http-method>
 			<http-method>POST</http-method>
 		</web-resource-collection>
@@ -28,8 +28,8 @@
 		<auth-method>FORM</auth-method>
 		<realm-name>RealmCustomizado</realm-name>
 		<form-login-config>
-			<form-login-page>/login.html</form-login-page>
-			<form-error-page>/login.html</form-error-page>
+			<form-login-page>/login.jsf</form-login-page>
+			<form-error-page>/login.jsf</form-error-page>
 		</form-login-config>
 	</login-config>
 
