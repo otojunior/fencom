@@ -42,6 +42,21 @@ public class UsuarioFabrica {
 			RandomUtils.nextInt(1, 29), 0, 0);
 		mock.setDataNascimento(cal.getTime());
 		mock.setEndereco(endereco);
+		mock.setLogin(RandomStringUtils.randomAlphabetic(5, 8));
+		mock.setSenha(RandomStringUtils.randomAlphabetic(5, 8));
+		return mock;
+	}
+	
+	/**
+	 * 
+	 * @param login
+	 * @param senha
+	 * @return
+	 */
+	public static Usuario criar(String login, String senha) {
+		Usuario mock = criar();
+		mock.setLogin(login);
+		mock.setSenha(senha);
 		return mock;
 	}
 }

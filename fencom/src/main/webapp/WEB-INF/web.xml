@@ -11,7 +11,7 @@
 			<http-method>POST</http-method>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>Gerente</role-name>
+			<role-name>Administrador</role-name>
 		</auth-constraint>
 		<!-- 
 		<user-data-constraint>

@@ -40,11 +40,22 @@
                     <properties path="application-users.properties" relative-to="jboss.server.config.dir"/>
                 </authentication>
             </security-realm>
-            <security-realm name="RealmCustomizado">
+            
+			<!-- *********** REALMS CUSTOMIZADOS ************* -->
+			
+			<security-realm name="RealmCustomizado">
                 <authentication>
                     <jaas name="customizado"/>
                 </authentication>
             </security-realm>
+            <security-realm name="RealmCustomizadoBancoDados">
+                <authentication>
+                    <jaas name="customizadobancodados"/>
+                </authentication>
+            </security-realm>
+			
+			<!-- ********************************************* -->
+			
         </security-realms>
         <management-interfaces>
             <native-interface security-realm="ManagementRealm">
@@ -238,6 +249,9 @@
                         </login-module>
                     </authentication>
                 </security-domain>
+				
+				<!-- *********** REALMS CUSTOMIZADOS ************* -->
+				
                 <security-domain name="customizado" cache-type="default">
                     <authentication>
                         <login-module code="UsersRoles" flag="required">
@@ -246,6 +260,18 @@
                         </login-module>
                     </authentication>
                 </security-domain>
+                <security-domain name="customizadobancodados" cache-type="default">
+                    <authentication>
+                        <login-module code="Database" flag="required">
+                            <module-option name="dsJndiName" value="java:jboss/datasources/fencom-ds"/>
+                            <module-option name="principalsQuery" value="select senha from usuario where login = ?"/>
+                            <module-option name="rolesQuery" value="select p.perfil, 'Roles' from perfil p join perfil_usuarios pu on pu.perfil = p.id join usuario u on u.id = pu.usuarios where u.login = ?"/>
+                        </login-module>
+                    </authentication>
+                </security-domain>
+				
+				<!-- ********************************************* -->
+				
                 <security-domain name="jboss-web-policy" cache-type="default">
                     <authorization>
                         <policy-module code="Delegating" flag="required"/>

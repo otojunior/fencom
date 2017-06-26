@@ -14,6 +14,7 @@
 		<jta-data-source>jdbc/fencom-ds</jta-data-source>
 		
 		<class>org.otojunior.fencom.entidade.usuario.Usuario</class>
+		<class>org.otojunior.fencom.entidade.usuario.Perfil</class>
 		<class>org.otojunior.fencom.entidade.procedimento.Procedimento</class>
 		
 		<properties>

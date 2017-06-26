@@ -3,11 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
     
-    <datasource jndi-name="jdbc/fencom-ds"
+    <datasource jndi-name="java:jboss/datasources/fencom-ds"
         pool-name="default_pool" 
         enabled="true"
         use-java-context="true">
-        <connection-url>jdbc:h2:mem:default;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
+        <connection-url>jdbc:h2:tcp://localhost/~/teste</connection-url>
         <driver>h2</driver>
         <security>
             <user-name>sa</user-name>
@@ -15,7 +15,7 @@
         </security>
     </datasource>
     
-    <xa-datasource jndi-name="jdbc/fencom-xa-ds" 
+    <xa-datasource jndi-name="java:jboss/datasources/fencom-xa-ds" 
 	    	pool-name="default_xa_pool" 
 	    	enabled="true" 
 	    	use-java-context="true">

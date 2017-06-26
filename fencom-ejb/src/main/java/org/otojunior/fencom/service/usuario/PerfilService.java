@@ -8,8 +8,8 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
-import org.otojunior.fencom.dao.usuario.UsuarioDao;
-import org.otojunior.fencom.entidade.usuario.Usuario;
+import org.otojunior.fencom.dao.usuario.PerfilDao;
+import org.otojunior.fencom.entidade.usuario.Perfil;
 import org.otojunior.fencom.service.ServiceBase;
 
 /**
@@ -17,16 +17,16 @@ import org.otojunior.fencom.service.ServiceBase;
  *
  */
 @Stateless
-public class UsuarioService extends ServiceBase {
+public class PerfilService extends ServiceBase {
 	@EJB
-	private UsuarioDao dao;
+	private PerfilDao dao;
 	
 	/**
 	 * 
-	 * @param usuario
+	 * @param perfil
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void persistir(Usuario usuario) {
-		dao.persistir(usuario);
+	public void persistir(Perfil perfil) {
+		dao.persistir(perfil);
 	}
 }
