@@ -6,6 +6,19 @@
 
 	<h:head>
 		<title>Login Form</title>
+		
+		<h:outputScript library="webjars" name="jquery/3.2.0/jquery.min.js" />
+		
+		<script>
+			$(document).ready(function() {
+			    $("#cmd_login").click(function() {
+			        var username = $("#t_username").val() + "|" + $("#t_cooperativa").val();
+					$("#j_username").val(username);
+			        alert(username); 
+			    });
+			    $("#t_username").focus();
+			});
+		</script>
 	</h:head>
 	
 	<h:body>
@@ -22,7 +35,8 @@
 							</span>
 						</td>
 						<td>
-							<h:inputText id="j_username" autocomplete="off" size="20" />
+							<h:inputText id="t_username" autocomplete="off" size="20" />
+							<h:inputHidden id="j_username" />
 						</td>
 					</tr>
 					<tr>
@@ -35,11 +49,27 @@
 							<h:inputSecret id="j_password" autocomplete="off" size="20" />
 						</td>
 					</tr>
+					<tr>
+						<td>
+							<span style="font-family: monospace; font-weight: bold">
+								<h:outputLabel for="t_cooperativa"	value="Cooperativa: " />	
+							</span>
+						</td>
+						<td>
+							<h:selectOneMenu id="t_cooperativa" value="#{sessionControlView.cooperativa}">
+								<f:selectItems 
+									value="#{sessionControlView.cooperativas}" 
+									var="item" 
+									itemLabel="#{item.nome}" 
+									itemValue="#{item.id}"/>
+							</h:selectOneMenu>
+						</td>
+					</tr>
 				</table>
 			</p>
 			<p align="center">
-				<h:commandButton type="submit" value="Entrar" />&nbsp;
-				<h:commandButton type="reset" value="Cancelar" />
+				<h:commandButton id="cmd_login" type="submit" value="Entrar" />&nbsp;
+				<h:commandButton id="cmd_cancelar" type="reset" value="Cancelar" />
 			</p>
 		</form>
 	</h:body>
