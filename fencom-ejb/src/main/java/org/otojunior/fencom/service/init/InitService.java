@@ -41,6 +41,9 @@ public class InitService {
 	@Resource 
 	private SessionContext ctx;
 	
+	@Resource(lookup="java:global/pathtiss")
+	private String path;
+	
 	/**
 	 * 
 	 */
@@ -72,9 +75,9 @@ public class InitService {
 		
 		if (N_PERFIS) {
 			Usuario[] usuarios = new Usuario[3];
-			usuarios[0] = UsuarioFabrica.criar("admin", "admin123");
-			usuarios[1] = UsuarioFabrica.criar("operador", "operxxx");
-			usuarios[2] = UsuarioFabrica.criar("gerente", "gerenteyyy");
+			usuarios[0] = UsuarioFabrica.criar("admin|1", "admin123");
+			usuarios[1] = UsuarioFabrica.criar("operador|2", "operxxx");
+			usuarios[2] = UsuarioFabrica.criar("gerente|3", "gerenteyyy");
 			
 			Perfil[] perfis = new Perfil[3];
 			perfis[0] = PerfilFabrica.criar("Administrador", Collections.singleton(usuarios[0]));
@@ -92,5 +95,6 @@ public class InitService {
 	 */
 	public void getUsuarioLogado() {
 		LOG.info("Usuário Logado: " + ctx.getCallerPrincipal().getName());
+		LOG.info("pathtiss: " + path);
 	}
 }
