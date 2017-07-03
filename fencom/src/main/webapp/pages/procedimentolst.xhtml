@@ -81,7 +81,7 @@
 				        <p:column headerText="Valor do Desconto">
 				            <h:outputText value="#{item.valorDesconto}" />
 				        </p:column>
-				        <p:column headerText="Valor Total">
+				        <p:column headerText="Valor Total" rendered="#{request.isUserInRole('Administrador')}">
 				            <h:outputText value="#{item.valorTotal}" />
 				        </p:column>
 				        <f:facet name="footer">

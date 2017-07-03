@@ -12,6 +12,7 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Administrador</role-name>
+			<role-name>Gerente</role-name>
 		</auth-constraint>
 		<!-- 
 		<user-data-constraint>
@@ -21,6 +22,7 @@
 	</security-constraint>		
 
 	<security-role>
+		<role-name>Administrador</role-name>
 		<role-name>Gerente</role-name>
 	</security-role>
 
