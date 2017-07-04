@@ -57,5 +57,5 @@ Depois de cadastrado o Realm na seção management, o security-domain é especí
 ### 1.3. Via Outros Meios
 
 Vide: 
-[JBoss Login Modules](http://red.ht/2tEZOxe)
-[Security subsystem configuration](http://red.ht/2tdk5sq)
+1. [JBoss Login Modules](http://red.ht/2tEZOxe)
+2. [Security subsystem configuration](http://red.ht/2tdk5sq)
