@@ -126,13 +126,6 @@ public class Usuario extends EntidadeBase {
 	}
 
 	/**
-	 * @return the senha
-	 */
-	public String getSenha() {
-		return senha;
-	}
-
-	/**
 	 * @param dataNascimento the dataNascimento to set
 	 */
 	public void setDataNascimento(Date dataNascimento) {
@@ -191,8 +184,10 @@ public class Usuario extends EntidadeBase {
 	 */
 	public static void main(String[] args) {
 		String senha = args[0];
-		Usuario inst = new Usuario();
-		inst.setSenha(senha);
-		System.out.println("Hash da senha: " + inst.getSenha());
+		if (StringUtils.isNotBlank(senha)) {
+			byte[] hash = digest.digest(senha.getBytes());
+			senha = Base64Utils.tob64(hash);
+		}
+		System.out.println("Hash da senha: " + senha);
 	}
 }
