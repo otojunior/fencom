@@ -1,20 +1,8 @@
 ## 1. Autenticação e Autorização
 
-Configurações a serem feitas no arquivo **standalone.xml** do JBoss:
+### 1.1. Arquivo **standalone.xml** do JBoss:
 
-```xml
-<management>
-  ...
-  <security-realm name="RealmCustomizado">
-    <authentication>
-      <jaas name="customizado"/>
-    </authentication>
-  </security-realm>
-```
-
-Depois de cadastrado o Realm na seção management, o security-domain é específico da origem da autenticação/autorização a ser empregada (arquivo de propriedades, banco de dados, LDAP, hard-coded, etc).
-
-### 1.1. Via Arquivos de Propriedades
+#### 1.1.1. Via Arquivos de Propriedades
 
 ```xml
 <subsystem xmlns="urn:jboss:domain:security:1.1">
@@ -30,7 +18,7 @@ Depois de cadastrado o Realm na seção management, o security-domain é especí
     </security-domain>
 ```
 
-### 1.2. Via Banco de Dados
+#### 1.1.2. Via Banco de Dados
 
 ```xml
 <subsystem xmlns="urn:jboss:domain:security:1.1">
@@ -54,8 +42,33 @@ Depois de cadastrado o Realm na seção management, o security-domain é especí
     </security-domain>
 ```
 
-### 1.3. Via Outros Meios
+#### 1.1.3. Via "Hard-Coded" (Usuário e Role Fixas)
+
+```xml
+<subsystem xmlns="urn:jboss:domain:security:1.1">
+  <security-domains>
+    ...
+    <security-domain name="customizadoidentity" cache-type="default">
+        <authentication>
+            <login-module code="Identity" flag="required">
+                <module-option name="principal" value="usuariofixo"/>
+                <module-option name="roles" value="Administrador"/>
+            </login-module>
+        </authentication>
+    </security-domain>
+```
+
+#### 1.1.4. Via Outros Meios
 
 Vide: 
 1. [JBoss Login Modules](http://red.ht/2tEZOxe)
 2. [Security subsystem configuration](http://red.ht/2tdk5sq)
+
+
+### 1.2. Arquivo **jboss-web.xml** da Aplicação:
+
+```xml
+<jboss-web>  
+    <security-domain>customizadobancodados</security-domain>  
+</jboss-web>
+```
