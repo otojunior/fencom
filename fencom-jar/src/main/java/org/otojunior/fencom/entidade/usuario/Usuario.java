@@ -3,6 +3,8 @@
  */
 package org.otojunior.fencom.entidade.usuario;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
 import java.util.Date;
 
@@ -15,7 +17,11 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.StringUtils;
+import org.jboss.security.Base64Utils;
 import org.otojunior.fencom.entidade.EntidadeBase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author 01456231650
@@ -23,10 +29,18 @@ import org.otojunior.fencom.entidade.EntidadeBase;
  */
 @Entity
 public class Usuario extends EntidadeBase {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6032559148522702150L;
+	private static final Logger LOG = LoggerFactory.getLogger(Usuario.class); 
+	
+	private static MessageDigest digest;
+	
+	static {
+		try {
+			digest = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			LOG.error(e.getMessage());
+		}
+	}
 	
 	@NotNull
 	@Column(nullable=false, length=50)
@@ -164,6 +178,21 @@ public class Usuario extends EntidadeBase {
 	 * @param senha the senha to set
 	 */
 	public void setSenha(String senha) {
+		if (StringUtils.isNotBlank(senha)) {
+			byte[] hash = digest.digest(senha.getBytes());
+			senha = Base64Utils.tob64(hash);
+		}
 		this.senha = senha;
+	}
+	
+	/**
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String senha = args[0];
+		Usuario inst = new Usuario();
+		inst.setSenha(senha);
+		System.out.println("Hash da senha: " + inst.getSenha());
 	}
 }

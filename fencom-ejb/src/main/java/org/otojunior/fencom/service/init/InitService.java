@@ -75,7 +75,7 @@ public class InitService {
 		
 		if (N_PERFIS) {
 			Usuario[] usuarios = new Usuario[3];
-			usuarios[0] = UsuarioFabrica.criar("admin|1", "admin123");
+			usuarios[0] = UsuarioFabrica.criar("admin|1", "admin");
 			usuarios[1] = UsuarioFabrica.criar("operador|2", "operxxx");
 			usuarios[2] = UsuarioFabrica.criar("gerente|3", "gerenteyyy");
 			
