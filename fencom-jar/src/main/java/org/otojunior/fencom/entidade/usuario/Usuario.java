@@ -3,8 +3,6 @@
  */
 package org.otojunior.fencom.entidade.usuario;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
 import java.util.Date;
 
@@ -17,11 +15,10 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jboss.security.Base64Utils;
 import org.otojunior.fencom.entidade.EntidadeBase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author 01456231650
@@ -30,17 +27,6 @@ import org.slf4j.LoggerFactory;
 @Entity
 public class Usuario extends EntidadeBase {
 	private static final long serialVersionUID = 6032559148522702150L;
-	private static final Logger LOG = LoggerFactory.getLogger(Usuario.class); 
-	
-	private static MessageDigest digest;
-	
-	static {
-		try {
-			digest = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
-			LOG.error(e.getMessage());
-		}
-	}
 	
 	@NotNull
 	@Column(nullable=false, length=50)
@@ -69,7 +55,7 @@ public class Usuario extends EntidadeBase {
 	private String login;
 	
 	@NotNull
-	@Column(nullable=false, length=20)
+	@Column(nullable=false, length=25)
 	private String senha;
 	
 	/**
@@ -172,22 +158,9 @@ public class Usuario extends EntidadeBase {
 	 */
 	public void setSenha(String senha) {
 		if (StringUtils.isNotBlank(senha)) {
-			byte[] hash = digest.digest(senha.getBytes());
-			senha = Base64Utils.tob64(hash);
+			byte[] hash = DigestUtils.md5(senha);
+			senha = Base64.encodeBase64String(hash);
 		}
 		this.senha = senha;
-	}
-	
-	/**
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		String senha = args[0];
-		if (StringUtils.isNotBlank(senha)) {
-			byte[] hash = digest.digest(senha.getBytes());
-			senha = Base64Utils.tob64(hash);
-		}
-		System.out.println("Hash da senha: " + senha);
 	}
 }

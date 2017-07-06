@@ -27,8 +27,13 @@
 	</security-role>
 
 	<login-config>
-		<auth-method>FORM</auth-method>
+		<!--
+			Em testes, parace que esta configuração se torna desnecessária
+			para o JBoss. A seleção de módulo de login está sendo feita
+			via arquivo jboss-web.xml
 		<realm-name>RealmCustomizado</realm-name>
+		-->
+		<auth-method>FORM</auth-method>
 		<form-login-config>
 			<form-login-page>/login.jsf</form-login-page>
 			<form-error-page>/error.jsf</form-error-page>

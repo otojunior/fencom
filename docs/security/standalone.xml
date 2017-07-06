@@ -40,22 +40,6 @@
                     <properties path="application-users.properties" relative-to="jboss.server.config.dir"/>
                 </authentication>
             </security-realm>
-            
-			<!-- *********** REALMS CUSTOMIZADOS ************* -->
-			
-			<security-realm name="RealmCustomizado">
-                <authentication>
-                    <jaas name="customizado"/>
-                </authentication>
-            </security-realm>
-            <security-realm name="RealmCustomizadoBancoDados">
-                <authentication>
-                    <jaas name="customizadobancodados"/>
-                </authentication>
-            </security-realm>
-			
-			<!-- ********************************************* -->
-			
         </security-realms>
         <management-interfaces>
             <native-interface security-realm="ManagementRealm">
@@ -212,7 +196,11 @@
                 <smtp-server outbound-socket-binding-ref="mail-smtp"/>
             </mail-session>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:naming:1.1"/>
+        <subsystem xmlns="urn:jboss:domain:naming:1.1">
+            <bindings>
+                <simple name="java:global/pathtiss" value="c:\\temp\\pathtiss.txt" type="java.lang.String"/>
+            </bindings>
+        </subsystem>
         <subsystem xmlns="urn:jboss:domain:osgi:1.2" activation="lazy">
             <properties>
                 <property name="org.osgi.framework.startlevel.beginning">
@@ -250,8 +238,7 @@
                     </authentication>
                 </security-domain>
 				
-				<!-- *********** REALMS CUSTOMIZADOS ************* -->
-				
+				<!-- ********************* Customizados ******************** -->
                 <security-domain name="customizado" cache-type="default">
                     <authentication>
                         <login-module code="UsersRoles" flag="required">
@@ -266,11 +253,21 @@
                             <module-option name="dsJndiName" value="java:jboss/datasources/fencom-ds"/>
                             <module-option name="principalsQuery" value="select senha from usuario where login = ?"/>
                             <module-option name="rolesQuery" value="select p.perfil, 'Roles' from perfil p join perfil_usuarios pu on pu.perfil = p.id join usuario u on u.id = pu.usuarios where u.login = ?"/>
+                            <module-option name="hashAlgorithm" value="MD5"/>
+                            <module-option name="hashEncoding" value="base64"/>
+                            <module-option name="hashStorePassword" value="false"/>
                         </login-module>
                     </authentication>
                 </security-domain>
-				
-				<!-- ********************************************* -->
+                <security-domain name="customizadoidentity" cache-type="default">
+                    <authentication>
+                        <login-module code="Identity" flag="required">
+                            <module-option name="principal" value="defaultuser|0"/>
+                            <module-option name="roles" value="Administrador"/>
+                        </login-module>
+                    </authentication>
+                </security-domain>
+				<!-- ***************************************************** -->
 				
                 <security-domain name="jboss-web-policy" cache-type="default">
                     <authorization>
