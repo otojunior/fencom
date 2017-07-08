@@ -81,7 +81,7 @@ LEFT JOIN
 		JOIN rl_entidade_convenio entidadeConvenioTemp ON entidadeConvenioTemp.id=atendimentoTemporario.fk_convenio	AND entidadeConvenioTemp.registro_ativo=1
 		WHERE (atendimentoTemporario.fk_espelho IS NULL)
 			AND atendimentoTemporario.situacaoAtendimento=0
-			AND entidadeConvenioTemp.fk_entidade= 2
+			AND entidadeConvenioTemp.fk_entidade = 16
 			AND atendimentoTemporario.registro_ativo = 1
 			AND procedimento.registro_ativo = 1
 		GROUP BY procedimento.id) digitadosTab ON procedimento.id = digitadosTab.id
@@ -94,7 +94,7 @@ LEFT JOIN
 		JOIN tb_pagamento_procedimento pagProcedimento ON pagProcedimento.fk_procedimento = procedimento.id
 		LEFT JOIN tb_pagamento_espelho pagamentoEspelho ON (pagamentoEspelho.fk_espelho = atendimentoTemporario.fk_espelho AND pagamentoEspelho.registro_ativo=1)
 		WHERE (pagProcedimento.fk_fatura IS NULL)
-			AND entidadeConvenioTemp.fk_entidade= 2
+			AND entidadeConvenioTemp.fk_entidade = 16
 			AND atendimentoTemporario.registro_ativo = 1
 			AND procedimento.registro_ativo = 1
 			AND pagProcedimento.registro_ativo = 1
@@ -109,7 +109,7 @@ LEFT JOIN
 		JOIN tb_glosa glosa ON glosa.fk_procedimento = procedimento.id
 		WHERE ISNULL(glosa.situacao,0) NOT IN (4,5,6)
 			AND glosa.registro_ativo = 1
-			AND entidadeConvenioTemp.fk_entidade= 2
+			AND entidadeConvenioTemp.fk_entidade = 16
 			AND atendimentoTemporario.registro_ativo = 1
 			AND procedimento.registro_ativo = 1
 		GROUP BY procedimento.id) glosadosTab ON procedimento.id = glosadosTab.id
@@ -122,7 +122,7 @@ LEFT JOIN
 		JOIN tb_fatura fatura ON pagProcedimento.fk_fatura = fatura.id
 		LEFT JOIN tb_pagamento_fatura pagFatura ON pagFatura.fk_fatura = fatura.id
 		WHERE (pagFatura.id IS NULL	OR pagFatura.registro_ativo = 0)
-			AND entidadeConvenioTemp.fk_entidade= 2
+			AND entidadeConvenioTemp.fk_entidade = 16
 			AND atendimentoTemporario.registro_ativo = 1
 			AND procedimento.registro_ativo = 1
 			AND pagProcedimento.registro_ativo = 1
@@ -137,7 +137,7 @@ LEFT JOIN
 		JOIN tb_fatura fatura ON pagProcedimento.fk_fatura = fatura.id
 		JOIN tb_pagamento_fatura pagFatura ON pagFatura.fk_fatura = fatura.id
 		WHERE procedimento.registro_ativo = 1
-			AND entidadeConvenioTemp.fk_entidade= 2
+			AND entidadeConvenioTemp.fk_entidade = 16
 			AND atendimentoTemporario.registro_ativo = 1
 			AND pagProcedimento.registro_ativo = 1
 			AND fatura.registro_ativo = 1
@@ -152,7 +152,7 @@ LEFT JOIN
 		JOIN tb_pagamento_procedimento pagProcedimento ON pagProcedimento.fk_procedimento = procedimento.id
 		JOIN tb_pagamento_espelho pagamentoEspelho ON pagamentoEspelho.fk_espelho = atendimentoTemporario.fk_espelho
 		WHERE procedimento.registro_ativo = 1
-			AND entidadeConvenioTemp.fk_entidade= 2
+			AND entidadeConvenioTemp.fk_entidade = 16
 			AND atendimentoTemporario.registro_ativo = 1
 			AND pagProcedimento.registro_ativo = 1
 			AND pagProcedimento.fk_fatura IS NULL
@@ -169,7 +169,7 @@ LEFT JOIN
 		JOIN tb_pagamento_fatura pagFatura ON pagFatura.fk_fatura = fatura.id
 		JOIN tb_repasse repasse ON repasse.id = pagFatura.fk_repasse
 		WHERE procedimento.registro_ativo = 1
-			AND entidadeConvenioTemp.fk_entidade= 2
+			AND entidadeConvenioTemp.fk_entidade = 16
 			AND atendimentoTemporario.registro_ativo = 1
 			AND pagProcedimento.registro_ativo = 1
 			AND fatura.registro_ativo = 1
@@ -185,7 +185,7 @@ LEFT JOIN
 		JOIN tb_pagamento_espelho pagEspelho ON pagEspelho.fk_espelho = atendimentoTemporario.fk_espelho
 		JOIN tb_repasse repasse ON repasse.id = pagEspelho.fk_repasse
 		WHERE procedimento.registro_ativo = 1
-			AND entidadeConvenioTemp.fk_entidade= 2
+			AND entidadeConvenioTemp.fk_entidade = 16
 			AND atendimentoTemporario.registro_ativo = 1
 			AND pagProcedimento.registro_ativo = 1
 			AND pagEspelho.registro_ativo = 1
@@ -197,7 +197,7 @@ LEFT JOIN
 		JOIN rl_entidade_convenio entidadeConvenioTemp ON entidadeConvenioTemp.id=atendimentoTemporario.fk_convenio	AND entidadeConvenioTemp.registro_ativo=1
 		JOIN tb_procedimento procedimento ON procedimento.fk_atendimento = atendimentoTemporario.id
 		WHERE atendimentoTemporario.situacaoAtendimento = 6
-			AND entidadeConvenioTemp.fk_entidade= 2
+			AND entidadeConvenioTemp.fk_entidade = 16
 			AND procedimento.registro_ativo = 1
 			AND atendimentoTemporario.registro_ativo = 1
 		GROUP BY atendimentoTemporario.id) excluidosTab ON obj.id = excluidosTab.id
@@ -206,7 +206,7 @@ LEFT JOIN
 		FROM tb_atendimento atendimentoTemporario
 		JOIN rl_entidade_convenio entidadeConvenioTemp ON entidadeConvenioTemp.id=atendimentoTemporario.fk_convenio	AND entidadeConvenioTemp.registro_ativo=1
 		JOIN rl_atendimento_tipo_pendencia pendencia ON pendencia.fk_atendimento = atendimentoTemporario.id
-		WHERE entidadeConvenioTemp.fk_entidade= 2 
+		WHERE entidadeConvenioTemp.fk_entidade = 16 
 			AND atendimentoTemporario.registro_ativo = 1
 			AND pendencia.registro_ativo = 1
 		GROUP BY atendimentoTemporario.id) pendenteTab ON obj.id = pendenteTab.pendenteId
@@ -215,7 +215,7 @@ LEFT JOIN
 		FROM tb_atendimento atendimentoTemporario
 		JOIN rl_entidade_convenio entidadeConvenioTemp ON entidadeConvenioTemp.id=atendimentoTemporario.fk_convenio	AND entidadeConvenioTemp.registro_ativo=1
 		JOIN rl_atendimento_inconsistencia inconsistencia ON inconsistencia.fk_atendimento = atendimentoTemporario.id
-		WHERE entidadeConvenioTemp.fk_entidade= 2
+		WHERE entidadeConvenioTemp.fk_entidade = 16
 			AND atendimentoTemporario.registro_ativo = 1
 			AND inconsistencia.registro_ativo = 1
 		GROUP BY atendimentoTemporario.id) inconsistenciaTab ON obj.id = inconsistenciaTab.inconsistenteId
@@ -227,7 +227,7 @@ LEFT JOIN
 		JOIN tb_procedimento procedimento ON procedimento.fk_atendimento = atendimentoTemporario.id
 		JOIN tb_glosa glosa ON glosa.fk_procedimento = procedimento.id
 		WHERE glosa.registro_ativo = 1
-			AND entidadeConvenioTemp.fk_entidade= 2
+			AND entidadeConvenioTemp.fk_entidade = 16
 			AND atendimentoTemporario.registro_ativo = 1
 			AND procedimento.registro_ativo = 1
 			AND atendimentoTemporario.fk_importacao_unimed IS NOT NULL
