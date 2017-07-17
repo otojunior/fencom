@@ -76,101 +76,83 @@ LEFT JOIN tb_tabela_tiss tipoGuia ON (tipoGuia.id = procedimento.fk_tipo_guia AN
 LEFT JOIN rl_atendimento_tipo_pendencia pendencia ON (pendencia.fk_atendimento = obj.id AND pendencia.registro_ativo = 1)
 LEFT JOIN
 	(
-		SELECT 
-			procedimento.id, 
+		SELECT procedimento.id, 
 			SUM(CASE WHEN (
-				atendimentoTemporario.fk_espelho IS NULL 
+				atendimentoTemporario.situacaoAtendimento=0 AND
+				atendimentoTemporario.fk_espelho IS NULL
 			) THEN procedimento.valor_total ELSE 0 END) digitados,
 			SUM(CASE WHEN (
-				pagProcedimento.fk_procedimento IS NOT NULL AND 
-				pagProcedimento.fk_fatura IS NULL AND 
+				pagProcedimento.fk_fatura IS NULL AND
 				pagamentoEspelho.id IS NULL
 			) THEN pagProcedimento.valor_custo_operacional+pagProcedimento.valor_honorario+pagProcedimento.valor_acrescimo-pagProcedimento.valor_desconto ELSE 0 END) espelhados,
 			SUM(CASE WHEN (
-				glosa.fk_procedimento IS NOT NULL AND 
 				ISNULL(glosa.situacao,0) NOT IN (4,5,6)
 			) THEN glosa.valor_honorario+glosa.valor_acrescimo+glosa.valor_custo_operacional+glosa.valor_filme-glosa.valor_desconto ELSE 0 END) glosados,
 			SUM(CASE WHEN (
-				pagProcedimento.fk_procedimento IS NOT NULL AND 
-				pagProcedimento.fk_fatura IS NOT NULL AND 
+				fatura.id IS NOT NULL AND
+				pagFatura.fk_repasse IS NOT NULL AND
 				(pagFatura.id IS NULL OR pagFatura.registro_ativo = 0)
 			) THEN pagProcedimento.valor_custo_operacional+pagProcedimento.valor_honorario+pagProcedimento.valor_acrescimo-pagProcedimento.valor_desconto ELSE 0 END) faturados,
 			SUM(CASE WHEN (
-				pagProcedimento.fk_procedimento IS NOT NULL AND 
-				pagProcedimento.fk_fatura IS NOT NULL AND 
-				pagFatura.fk_fatura IS NOT NULL AND 
 				pagFatura.fk_repasse IS NULL
-			) THEN pagProcedimento.valor_custo_operacional+pagProcedimento.valor_honorario+pagProcedimento.valor_acrescimo-pagProcedimento.valor_desconto ELSE 0 END) pagos, --****
+			) THEN pagProcedimento.valor_custo_operacional+pagProcedimento.valor_honorario+pagProcedimento.valor_acrescimo-pagProcedimento.valor_desconto ELSE 0 END) pagos,
 			SUM(CASE WHEN (
-				pagProcedimento.fk_procedimento IS NOT NULL AND 
-				pagamentoEspelho.fk_espelho IS NOT NULL AND 
-				pagProcedimento.fk_fatura IS NULL AND 
 				pagamentoEspelho.fk_repasse IS NULL
 			) THEN pagProcedimento.valor_custo_operacional+pagProcedimento.valor_honorario+pagProcedimento.valor_acrescimo-pagProcedimento.valor_desconto ELSE 0 END) valorEspelhosPagos,
 			SUM(CASE WHEN (
-				pagProcedimento.fk_procedimento IS NOT NULL AND 
-				pagProcedimento.fk_fatura IS NOT NULL AND 
-				repasse.id IS NOT NULL AND
-				pagFatura.fk_repasse IS NOT NULL
+				pagFatura.id IS NOT NULL AND 
+				pagFatura.registro_ativo = 1
 			) THEN pagProcedimento.valor_custo_operacional+pagProcedimento.valor_honorario+pagProcedimento.valor_acrescimo-pagProcedimento.valor_desconto ELSE 0 END) repassados,
 			SUM(CASE WHEN (
-				pagProcedimento.fk_procedimento IS NOT NULL AND
-				pagamentoEspelho.fk_espelho IS NOT NULL AND
-				pagamentoEspelho.fk_repasse IS NOT NULL
+				pagamentoEspelho.id IS NOT NULL AND
+				pagamentoEspelho.registro_ativo=1
 			) THEN pagProcedimento.valor_custo_operacional+pagProcedimento.valor_honorario+pagProcedimento.valor_acrescimo-pagProcedimento.valor_desconto ELSE 0 END) repassadosEspelhados,
 			SUM(CASE WHEN (
-				atendimentoTemporario.situacaoAtendimento = 6 
+				atendimentoTemporario.situacaoAtendimento = 6	
 			) THEN atendimentoTemporario.valor_total_atendimento ELSE 0 END) excluidos,
 			SUM(CASE WHEN (
-				pendencia.fk_atendimento IS NOT NULL 
+				pendencia.id IS NOT NULL
 			) THEN atendimentoTemporario.valor_total_atendimento ELSE 0 END) pendentes,
 			SUM(CASE WHEN (
-				inconsistencia.fk_atendimento IS NOT NULL 
+				inconsistencia.id IS NOT NULL
 			) THEN atendimentoTemporario.valor_total_atendimento ELSE 0 END) inconsistentes,
 			COUNT(CASE WHEN (
-				atendimentoTemporario.fk_importacao_unimed IS NOT NULL 
-			) THEN glosa.id END) contaGlosa
+				atendimentoTemporario.fk_importacao_unimed IS NOT NULL
+			) THEN glosa.id ELSE NULL END) contaGlosa
 		FROM tb_atendimento atendimentoTemporario
-		JOIN tb_procedimento procedimento ON 
-			procedimento.fk_atendimento = atendimentoTemporario.id AND
-			procedimento.registro_ativo = 1
+		JOIN tb_procedimento procedimento ON procedimento.fk_atendimento = atendimentoTemporario.id
 		JOIN rl_entidade_convenio entidadeConvenioTemp ON 
-			entidadeConvenioTemp.id=atendimentoTemporario.fk_convenio AND
-			entidadeConvenioTemp.registro_ativo = 1 AND
-			entidadeConvenioTemp.fk_entidade = 2
+			entidadeConvenioTemp.id=atendimentoTemporario.fk_convenio AND 
+			entidadeConvenioTemp.registro_ativo=1
 		LEFT JOIN tb_espelho espelho ON 
-			espelho.id = atendimentoTemporario.fk_espelho AND
+			atendimentoTemporario.fk_espelho = espelho.id AND 
 			espelho.registro_ativo = 1
 		LEFT JOIN tb_pagamento_procedimento pagProcedimento ON 
-			pagProcedimento.fk_procedimento = procedimento.id AND
+			pagProcedimento.fk_procedimento = procedimento.id AND 
 			pagProcedimento.registro_ativo = 1
-		LEFT JOIN tb_pagamento_espelho pagamentoEspelho ON 
-			pagamentoEspelho.fk_espelho = atendimentoTemporario.fk_espelho AND
-			pagamentoEspelho.registro_ativo = 1
-		LEFT JOIN tb_glosa glosa ON 
-			glosa.fk_procedimento = procedimento.id AND
-			glosa.registro_ativo = 1
-		LEFT JOIN tb_fatura fatura ON 
-			fatura.id = pagProcedimento.fk_fatura AND
+		LEFT JOIN tb_pagamento_espelho pagamentoEspelho ON (
+			pagamentoEspelho.fk_espelho = atendimentoTemporario.fk_espelho AND 
+			pagamentoEspelho.registro_ativo=1)
+		LEFT JOIN tb_glosa glosa ON (
+			glosa.fk_procedimento = procedimento.id AND 
+			glosa.registro_ativo = 1)
+		LEFT JOIN tb_fatura fatura ON
+			fatura.id = pagProcedimento.fk_fatura AND 
 			fatura.registro_ativo = 1
 		LEFT JOIN tb_pagamento_fatura pagFatura ON 
-			pagFatura.fk_fatura = fatura.id AND
-			pagFatura.registro_ativo = 1
+			pagFatura.fk_fatura = fatura.id
 		LEFT JOIN tb_repasse repasse ON 
 			repasse.id = pagFatura.fk_repasse AND
 			repasse.registro_ativo = 1
-		LEFT JOIN tb_repasse repasse_esp ON 
-			repasse_esp.id = pagamentoEspelho.fk_repasse AND
-			repasse_esp.registro_ativo = 1
 		LEFT JOIN rl_atendimento_tipo_pendencia pendencia ON 
 			pendencia.fk_atendimento = atendimentoTemporario.id AND
 			pendencia.registro_ativo = 1
 		LEFT JOIN rl_atendimento_inconsistencia inconsistencia ON 
 			inconsistencia.fk_atendimento = atendimentoTemporario.id AND
 			inconsistencia.registro_ativo = 1
-		WHERE
-			atendimentoTemporario.situacaoAtendimento = 0 AND
-			atendimentoTemporario.registro_ativo = 1
+		WHERE entidadeConvenioTemp.fk_entidade = 16
+			AND atendimentoTemporario.registro_ativo = 1
+			AND procedimento.registro_ativo = 1
 		GROUP BY procedimento.id
 	) x ON procedimento.id = x.id
 CROSS apply dbo.retornaRepasseConcatenato(procedimento.id) AS concatenado 
