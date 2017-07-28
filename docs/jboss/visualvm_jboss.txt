@@ -1,0 +1,12 @@
+## Configuração do Servidor:
+1. $JBOSS_HOME/bin/add-user.sh username password
+2. $JBOSS_HOME/bin/add-user.sh -a username password
+3. $JBOSS_HOME/bin/standalone.sh –Djboss.bind.address.management=
+
+## Configuração do Cliente:
+1. Download [JBoss 7.1.1](http://jbossas.jboss.org/downloads)
+2. Colocar script visualvm.sh em $JBOSS_HOME/bin (no cliente)
+3. Adicionar Host Remoto com IP do JBoss remoto.
+4. Após isso, configurar conexão JMX com a String: **service:jmx:remoting-jmx://IP:9999**
+
+Fonte: (https://blog.akquinet.de/2012/11/01/connecting-visualvm-with-a-remote-jboss-as-7-eap6-jvm-process/)
